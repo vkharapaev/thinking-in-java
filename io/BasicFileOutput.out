@@ -1,0 +1,23 @@
+1: package io;
+2: 
+3: import java.io.*;
+4: 
+5: // Привет мир
+6: 
+7: public class BasicFileOutput {
+8:     static String file = "src/io/BasicFileOutput.out";
+9: 
+10:     public static void main(String[] args) throws IOException {
+11:         LineNumberReader in = new LineNumberReader(new StringReader(BufferedInputFile.read("src/io/BasicFileOutput.java")));
+12: 
+13:         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)))) {
+14:             String s;
+15:             while ((s = in.readLine()) != null) {
+16:                 out.println(in.getLineNumber() + ": " + s);
+17:             }
+18:         }
+19: 
+20: // Show the stored file:
+21:         System.out.println(BufferedInputFile.read(file));
+22:     }
+23: }
