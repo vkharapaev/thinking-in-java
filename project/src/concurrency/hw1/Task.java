@@ -1,7 +1,5 @@
 package concurrency.hw1;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
 public class Task implements Runnable {
 
     public Task() {
