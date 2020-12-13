@@ -25,15 +25,13 @@ class Count {
 }
 
 class Entrance implements Runnable {
-    private static Count count = new Count();
-    private static List<Entrance> entrances = new ArrayList<>();
+
+    private static volatile boolean canceled = false;
+    private final static Count count = new Count();
+    private final static List<Entrance> entrances = new ArrayList<>();
+
     private int number = 0;
     private final int id;
-    private static volatile boolean canceled = false;
-
-    public static void cancel() {
-        canceled = true;
-    }
 
     public Entrance(int id) {
         this.id = id;
@@ -49,7 +47,6 @@ class Entrance implements Runnable {
             System.out.println(this + " Total: " + count.increment());
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
-
             } catch (InterruptedException e) {
                 System.out.println("sleep interrupted");
             }
@@ -65,8 +62,13 @@ class Entrance implements Runnable {
     public String toString() {
         return "Entrance " + id + ": " + getValue();
     }
+
     public static int getTotalCount() {
         return count.value();
+    }
+
+    public static void cancel() {
+        canceled = true;
     }
 
     public static int sumEntrances() {
@@ -91,6 +93,6 @@ public class OrnamentalGarden {
             System.out.println("Some tasks were not terminated");
         }
         System.out.println("Total: " + Entrance.getTotalCount());
-        System.out.println("Sum of Entrances: "+Entrance.sumEntrances());
+        System.out.println("Sum of Entrances: " + Entrance.sumEntrances());
     }
 }
