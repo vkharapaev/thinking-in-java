@@ -9,7 +9,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 class Horse implements Runnable {
-
     private static int counter = 0;
     private final int id = counter++;
     private int strides = 0;
@@ -84,6 +83,7 @@ public class HorseRace {
                 System.out.println("barrier-action sleep interrupted");
             }
         });
+
         for (int i = 0; i < nHorses; i++) {
             Horse horse = new Horse(barrier);
             horses.add(horse);
